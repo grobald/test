@@ -1,0 +1,34 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Location {
+  comments       Json?
+  createdAt      DateTime        @default(now())
+  createdBy      String?
+  description    String?
+  id             String          @id @default(cuid())
+  image          Json?
+  latitude       Float?
+  likes          Json?
+  locationImages LocationImage[]
+  longitude      Float?
+  name           String?
+  ratings        Json?
+  updatedAt      DateTime        @updatedAt
+}
+
+model LocationImage {
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  isPrimary  Boolean?
+  location   Location? @relation(fields: [locationId], references: [id])
+  locationId String?
+  updatedAt  DateTime  @updatedAt
+  url        Json?
+}
