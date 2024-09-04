@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Rating {
+  createdAt  DateTime         @default(now())
+  id         String           @id @default(cuid())
+  locationId String?
+  updatedAt  DateTime         @updatedAt
+  userId     String?
+  value      EnumRatingValue?
+}
+
+model Comment {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  locationId String?
+  text       String
+  updatedAt  DateTime @updatedAt
+  userId     String?
+}
+
+model Like {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  locationId String?
+  updatedAt  DateTime @updatedAt
+  userId     String?
+}
+
+enum EnumRatingValue {
+  Option1
+}
